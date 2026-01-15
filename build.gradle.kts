@@ -20,6 +20,9 @@ repositories {
 }
 
 dependencies {
+    // Validation 사용하기 위해 추가
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
