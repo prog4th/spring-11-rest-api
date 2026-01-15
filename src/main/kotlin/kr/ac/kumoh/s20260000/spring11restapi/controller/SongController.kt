@@ -52,4 +52,31 @@ class SongController(
 
         return ResponseEntity.ok(song)
     }
+
+    // Update
+    @PutMapping("/{id}")
+    fun update(
+        @PathVariable id: String,
+        @Valid @RequestBody song: Song
+    ): ResponseEntity<Song> {
+        log.info("노래 수정 요청 - ID: $id, Data: $song")
+
+        val updated = service.updateSong(id, song)
+
+        log.info("노래 수정 성공 - ID: $id")
+        return ResponseEntity.ok(updated)
+    }
+
+    // Delete
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: String): ResponseEntity<Unit> {
+        log.info("노래 삭제 요청 - ID: $id")
+
+        service.deleteSong(id)
+
+        log.info("노래 삭제 성공 - ID: $id")
+
+        // 204 No Content 반환
+        return ResponseEntity.noContent().build()
+    }
 }

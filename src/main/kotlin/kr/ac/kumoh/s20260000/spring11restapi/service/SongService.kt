@@ -17,4 +17,28 @@ class SongService(
             = repository.findById(id).orElseThrow {
         IllegalArgumentException("노래(${id})를 찾을 수 없습니다.")
     }
+
+    // Update
+    fun updateSong(id: String, song: Song): Song {
+        val target = repository.findById(id).orElseThrow {
+            IllegalArgumentException("노래(${id})를 찾을 수 없습니다.")
+        }
+
+        val updatedSong = target.copy(
+            title = song.title,
+            singer = song.singer,
+            rating = song.rating,
+            lyrics = song.lyrics
+        )
+
+        return repository.save(updatedSong)
+    }
+
+    // Delete
+    fun deleteSong(id: String) {
+        if (!repository.existsById(id)) {
+            throw IllegalArgumentException("노래(${id})를 찾을 수 없습니다.")
+        }
+        repository.deleteById(id)
+    }
 }
